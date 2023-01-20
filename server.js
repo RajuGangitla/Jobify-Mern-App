@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import helmet from 'helmet';
 import xss from 'xss-clean';
+import mongoose from "mongoose";
 import mongoSanitize from 'express-mongo-sanitize';
 
 
@@ -54,6 +55,7 @@ const port = process.env.port || 5000;
 
 const start = async () => {
     try {
+        mongoose.set("strictQuery", false);
         await connectDB(process.env.MONGO_URL)
         app.listen(port, () => console.log(`server is running on ${port}`))
     } catch (error) {
